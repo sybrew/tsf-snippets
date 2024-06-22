@@ -9,6 +9,7 @@
  * License: GPLv3
  * Requires at least: 5.9
  * Requires PHP: 7.4.0
+ * Requires Plugins: autodescription
  *
  * @package My_The_SEO_Framework\SchemaImage
  */
@@ -21,8 +22,8 @@ namespace My_The_SEO_Framework\SchemaImage;
 
 		foreach ( $graph as &$data ) {
 			if ( 'WebPage' === $data['@type'] ) {
-				$data['primaryImageOfPage'] = My_Graph_Image::get_instant_ref( $args );
 				$data['image']              = &My_Graph_Image::get_dynamic_ref( $args );
+				$data['primaryImageOfPage'] = My_Graph_Image::get_instant_ref( $args );
 			}
 		}
 
@@ -66,8 +67,10 @@ class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 
 		$entity = [];
 
-		// TODO: We'll probably turn 'social' into 'search' when this gets implemented.
-		foreach ( \tsf()->image()->get_image_details( $args, false, 'social' ) as $image ) {
+		// TODO: We'll probably turn 'social' into 'schema' when this gets implemented.
+		// We should also decouple this from the My_Graph_Image object since static::$type needs to become iterably changed.
+		// Hence, this will probably be the first graph item that is iterable.
+		foreach ( \tsf()->image()->get_image_details( $args, false, 'schema' ) as $image ) {
 			$details = [
 				'@id'   => static::get_id( $args ),
 				'@type' => &static::$type,
