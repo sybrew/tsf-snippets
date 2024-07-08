@@ -3,7 +3,7 @@
  * Plugin Name: The SEO Framework - Add image to Schema.org/WebPage
  * Plugin URI: https://theseoframework.com/
  * Description: Adds image data to The SEO Framework's Schema.org graph.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Sybre Waaijer
  * Author URI: https://theseoframework.com/
  * License: GPLv3
@@ -72,9 +72,10 @@ class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 		// Hence, this will probably be the first graph item that is iterable.
 		foreach ( \tsf()->image()->get_image_details( $args, false, 'schema' ) as $image ) {
 			$details = [
-				'@id'   => static::get_id( $args ),
-				'@type' => &static::$type,
-				'url'   => $image['url'],
+				'@id'        => static::get_id( $args ),
+				'@type'      => &static::$type,
+				'url'        => $image['url'],
+				'contentUrl' => $image['url'],
 			];
 
 			// Don't report dimensions if 0; 0 doesn't get scrubbed.
