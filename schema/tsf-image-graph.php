@@ -18,6 +18,13 @@ namespace My_The_SEO_Framework\SchemaImage;
 
 \add_filter(
 	'the_seo_framework_schema_graph_data', // should be 'the_seo_framework_schema_queued_graph_data' for TSF v5.0.7+ to make references work.
+	/**
+	 * @since 1.0.0
+	 * @param array[]    $graph A sequential list of graph entities.
+	 * @param array|null $args  The query arguments. Accepts 'id', 'tax', 'pta', and 'uid'.
+	 *                          Is null when the query is autodetermined.
+	 * @return array[] The adjusted graph.
+	 */
 	function ( $graph, $args ) {
 
 		foreach ( $graph as &$data ) {
@@ -39,16 +46,19 @@ namespace My_The_SEO_Framework\SchemaImage;
 class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 
 	/**
+	 * @since 1.0.0
 	 * @var string|string[] $type The Schema @type.
 	 */
 	public static $type = 'ImageObject';
 
 	/**
+	 * @since 1.0.0
 	 * @var int $image_id The current image iterated. 0 is the PrimaryImage.
 	 */
 	public static $image_id = 0;
 
 	/**
+	 * @since 1.0.0
 	 * @param array|null $args The query arguments. Accepts 'id', 'tax', 'pta', and 'uid'.
 	 *                         Leave null to autodetermine query.
 	 * @return string The entity ID for $args.
@@ -59,6 +69,7 @@ class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 	}
 
 	/**
+	 * @since 1.0.0
 	 * @param array|null $args The query arguments. Accepts 'id', 'tax', 'pta', and 'uid'.
 	 *                         Leave null to autodetermine query.
 	 * @return ?array $entity The Schema.org graph entity. Null on failure.
