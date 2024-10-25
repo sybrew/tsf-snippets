@@ -16,7 +16,7 @@ Try it: https://tsf.fyi/snippet/get/schema/tsf-image-graph.
 
 ### Files may be outdated
 
-Our snippet-to-ZIP plugin service creates a new caching hash every 4 hours. So, obtaining the latest version of a snippet can take up to 4 hours.
+Our [snippet-to-ZIP plugin service](https://gist.github.com/sybrew/3b2a0ef34712398105eddfc1ca25fbb5) creates a new caching hash every 4 hours. So, obtaining the latest version of a snippet can take up to 4 hours.
 
 ## How to install a snippet
 
