@@ -23,7 +23,7 @@
  * It's also made procedural where possible
  * Optimized opcodes (namespace escaping, removing unnecessary jumps and redundant variable assignments, etc.).
  *
- * This fork was requested because this plugin doesn't reintroduce the 'blog' base: https://wordpress.org/plugins/no-category-base-wpml/.
+ * This fork was requested because the following plugin doesn't reintroduce the 'blog' base: https://wordpress.org/plugins/no-category-base-wpml/.
  */
 
 namespace My_The_SEO_Framework;
@@ -206,6 +206,8 @@ function add_category_rewrites( $rewrites, $category_name, $blog_prefix, $pagina
  * @hook created_category 10
  * @hook edited_category 10
  * @hook delete_category 10
+ * @hook activate_remove-category-base/remove-category-base.php 10
+ * @hook deactivate_remove-category-base/remove-category-base.php 10
  * @since 1.0.0
  *
  * @return void
