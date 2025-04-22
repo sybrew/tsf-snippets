@@ -17,7 +17,7 @@
 namespace My_The_SEO_Framework\SchemaImage;
 
 \add_filter(
-	'the_seo_framework_schema_graph_data', // should be 'the_seo_framework_schema_queued_graph_data' for TSF v5.0.7+ to make references work.
+	'the_seo_framework_schema_queued_graph_data',
 	/**
 	 * @since 1.0.0
 	 * @param array[]    $graph A sequential list of graph entities.
