@@ -3,7 +3,7 @@
  * Plugin Name: The SEO Framework - Remove category base
  * Plugin URI: https://theseoframework.com/
  * Description: Removed the category base from the URL, akin to how Yoast SEO does it.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Sybre Waaijer
  * Author URI: https://theseoframework.com/
  * License: GPLv3
@@ -101,10 +101,16 @@ function redirect_base( $query_vars ) {
 	if ( empty( $query_vars['mytsf_category_redirect'] ) )
 		return $query_vars;
 
-	\wp_safe_redirect(
-		\trailingslashit( \get_option( 'home' ) ) . \user_trailingslashit( $query_vars['mytsf_category_redirect'], 'category' ),
-		301,
-	);
+	// Determine blog prefix, similar to modify_category_rewrite_rules
+	$permalink_structure = \get_option( 'permalink_structure' );
+	$blog_prefix = \is_main_site() && str_starts_with( $permalink_structure, '/blog/' )
+		? 'blog/'
+		: '';
+
+	// Build the redirect URL
+	$redirect_url = \trailingslashit( \get_option( 'home' ) ) . $blog_prefix . \user_trailingslashit( $query_vars['mytsf_category_redirect'], 'category' );
+
+	\wp_safe_redirect( $redirect_url, 301 );
 	exit;
 }
 
