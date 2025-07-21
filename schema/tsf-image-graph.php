@@ -78,7 +78,6 @@ class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 
 		$entity = [];
 
-		// TODO: We'll probably turn 'social' into 'schema' when this gets implemented.
 		// We should also decouple this from the My_Graph_Image object since static::$type needs to become iterably changed.
 		// Hence, this will probably be the first graph item that is iterable.
 		foreach ( \tsf()->image()->get_image_details( $args, false, 'schema' ) as $image ) {
