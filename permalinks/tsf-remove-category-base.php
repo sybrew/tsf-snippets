@@ -3,7 +3,7 @@
  * Plugin Name: The SEO Framework - Remove category base
  * Plugin URI: https://theseoframework.com/
  * Description: Removed the category base from the URL, akin to how Yoast SEO does it.
- * Version: 1.0.0
+ * Version: 1.0.2
  * Author: Sybre Waaijer
  * Author URI: https://theseoframework.com/
  * License: GPLv3
@@ -91,21 +91,35 @@ function register_query_vars( $query_vars ) {
  * Checks whether the redirect needs to be created.
  *
  * @hook request 10
- * @since 1.0.0
+ * @since 1.0.2
  *
  * @param array<string> $query_vars Query vars to check for existence of redirect var.
  * @return array<string> The query vars.
  */
 function redirect_base( $query_vars ) {
-
-	if ( empty( $query_vars['mytsf_category_redirect'] ) )
+	if ( empty( $query_vars['mytsf_category_redirect'] ) ) {
 		return $query_vars;
+	}
 
-	\wp_safe_redirect(
-		\trailingslashit( \get_option( 'home' ) ) . \user_trailingslashit( $query_vars['mytsf_category_redirect'], 'category' ),
-		301,
-	);
+	// Get the category by slug (the matched part)
+	$category = get_category_by_slug( $query_vars['mytsf_category_redirect'] );
+	if ( $category && ! is_wp_error( $category ) ) {
+		$redirect_url = get_category_link( $category->term_id );
+		wp_safe_redirect( $redirect_url, 301 );
+		exit;
+	}
+
+	// Fallback: redirect to home if not found
+	wp_safe_redirect( home_url(), 301 );
 	exit;
+}
+
+/**
+ * Helper: Get category by slug.
+ */
+function get_category_by_slug( $slug ) {
+	$term = get_term_by( 'slug', $slug, 'category' );
+	return $term;
 }
 
 /**
