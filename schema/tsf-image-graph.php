@@ -11,6 +11,12 @@
  * Requires PHP: 7.4.0
  * Requires Plugins: autodescription
  *
+ * The snippet plugin appends the 'image' and 'primaryImageOfPage' fields to the Schema.org/WebPage markup outputted by TSF.
+ * These are believed to workaround a bug in Google where they cannot handle images without an alt tag that reside within an <a> tag.
+ * However, after a year of testing, we found no evidence that this Schema.org addition works. Ref:
+ * 1. https://wordpress.org/support/topic/thumbnail-image-issues-in-google-search/#post-17837438
+ * 2. https://wordpress.org/support/topic/how-can-i-add-an-image-to-the-google-search/#post-17908451
+ *
  * @package My_The_SEO_Framework\SchemaImage
  */
 
@@ -109,7 +115,7 @@ class My_Graph_Image extends \The_SEO_Framework\Meta\Schema\Entities\Reference {
 
 			$entity[] = $details;
 
-			static::$image_id++;
+			++static::$image_id;
 		}
 
 		// Reset counter.
